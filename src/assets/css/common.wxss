@@ -1,0 +1,128 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  background-color: #eeeeee;
+}
+.app .header {
+  color: white;
+  background: #0c0b0b;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3000;
+}
+.app .header .nav {
+  width: 80%;
+  margin: 0 auto;
+}
+.app .header .nav .home-icon {
+  height: 30px;
+  background: url('../img/cat_white.png') no-repeat left center;
+  background-size: 30px 30px;
+}
+.app .header .nav .message-icon {
+  height: 30px;
+  background: url('../img/message.png') no-repeat left center;
+  background-size: 30px 30px;
+}
+.app .header .nav .article-icon {
+  height: 30px;
+  background: url('../img/article.png') no-repeat left center;
+  background-size: 30px 30px;
+}
+.app .header .nav .article-icon .article-sort-container {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  justify-content: space-between;
+  height: 120px;
+  padding: 20px 0;
+}
+.app .header .nav a {
+  margin-left: 40px;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+}
+.app .header .header-icon {
+  width: 30px;
+  height: 30px;
+}
+.app .header a {
+  text-decoration: none;
+  color: white;
+}
+.app .container {
+  width: 80%;
+  margin: 100px auto;
+}
+.app .container .container-left {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  border: 1px solid #f2f2f2;
+  width: 20%;
+  position: fixed;
+  background-color: white;
+  border-radius: 4px;
+}
+.app .container .container-left .profile {
+  width: 100%;
+}
+.app .container .container-left .profile .profile-background img {
+  width: 100%;
+}
+.app .container .container-left .profile .profile-head {
+  width: 40%;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  top: -60px;
+}
+.app .container .container-left .profile .profile-head img {
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+.app .container .container-left .profile .profile-name {
+  text-align: center;
+  margin-top: -40px;
+}
+.app .container .container-left .profile .profile-name img {
+  width: 15px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+.app .container .container-left .profile .profile-divider {
+  margin: 0 10px;
+}
+.app .container .container-left .profile .profile-divider img {
+  width: 15px;
+}
+.app .container .container-left .profile .profile-weibo {
+  margin: 15px;
+}
+.app .container .container-left .profile .profile-weibo img {
+  width: 20px;
+  vertical-align: bottom;
+}
+.app .container .container-left .profile .profile-email {
+  margin: 15px;
+}
+.app .container .container-left .profile .profile-email img {
+  width: 20px;
+  vertical-align: bottom;
+}
+.app .container .container-right {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  border: 1px solid #f2f2f2;
+  margin-left: 30%;
+  border-radius: 4px;
+  background-color: white;
+}
