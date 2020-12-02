@@ -1,21 +1,19 @@
 <template>
     <div class="message-card-container">
-        
         <div class="card-header">
             <div class="user-header">
-                <img src="../assets/img/myhead.jpg" >
+                <img :src="messageinfo.user.user_head" >
             </div>
             <div class="user-name">
-                <span>Keymaker</span>
+                <span>{{ messageinfo.user.nickname }}</span>
             </div>
         </div>
-        <div class="card-content">
-            Hello,World!
-        </div>
+        <div class="card-content">{{ messageinfo.content }}</div>
     </div>
 </template>
 <script>
 export default {
+    props: ['messageinfo'],
     data(){
         return {
 

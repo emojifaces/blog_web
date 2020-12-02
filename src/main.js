@@ -4,7 +4,7 @@ import less from 'less'
 import router from './router/index'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import axios from 'axios'
+import axios from './api/http'
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios

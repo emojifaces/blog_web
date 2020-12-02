@@ -1,39 +1,14 @@
 <template>
   <div class="message-container">
       <el-timeline>
-          <el-timeline-item timestamp="2020/10/24" placement="top">
+          <el-timeline-item 
+          :timestamp="message.create_time" 
+          placement="top"
+          v-for="message in messageList"
+          :key="message.id"
+          >
             <el-card>
-                <MessageCard></MessageCard>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2020/10/24" placement="top">
-            <el-card>
-                <MessageCard></MessageCard>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2020/10/24" placement="top">
-            <el-card>
-                <MessageCard></MessageCard>
-            </el-card>
-          </el-timeline-item><el-timeline-item timestamp="2020/10/24" placement="top">
-            <el-card>
-                <MessageCard></MessageCard>
-            </el-card>
-          </el-timeline-item><el-timeline-item timestamp="2020/10/24" placement="top">
-            <el-card>
-                <MessageCard></MessageCard>
-            </el-card>
-          </el-timeline-item><el-timeline-item timestamp="2020/10/24" placement="top">
-            <el-card>
-                <MessageCard></MessageCard>
-            </el-card>
-          </el-timeline-item><el-timeline-item timestamp="2020/10/24" placement="top">
-            <el-card>
-                <MessageCard></MessageCard>
-            </el-card>
-          </el-timeline-item><el-timeline-item timestamp="2020/10/24" placement="top">
-            <el-card>
-                <MessageCard></MessageCard>
+                <MessageCard :messageinfo="message"></MessageCard>
             </el-card>
           </el-timeline-item>
       </el-timeline>
@@ -45,11 +20,15 @@ import MessageCard from '../components/MessageCard.vue'
     export default{
         data(){
             return {
-
+              messageList: []
             }
         },
         components:{
             MessageCard
+        },
+        mounted(){
+          this.$axios.get('/message')
+          .then(res => this.messageList = res.data)
         }
     }
 </script>

@@ -8,10 +8,6 @@
           <el-col :span="4">
             <div class="article-icon" @mouseover="articleSort=true" @mouseleave="articleSort=false">
               <router-link to="/article">文章</router-link>
-              <div class="article-sort-container" v-show="articleSort">
-                <router-link to="/article/orther">杂谈</router-link>
-                <router-link to="/article/skill">技术</router-link>
-              </div>
           </div></el-col>
         </el-row>
       </div>

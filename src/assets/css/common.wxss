@@ -36,15 +36,6 @@ body {
   background: url('../img/article.png') no-repeat left center;
   background-size: 30px 30px;
 }
-.app .header .nav .article-icon .article-sort-container {
-  background-color: black;
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  justify-content: space-between;
-  height: 120px;
-  padding: 20px 0;
-}
 .app .header .nav a {
   margin-left: 40px;
   display: inline-block;
