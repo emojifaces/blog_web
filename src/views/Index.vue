@@ -56,19 +56,14 @@ export default {
   name: 'App',
   data(){
     return {
-       isShowHeadMenu:false
+       
     }
   },
   components: {
     UserHeadDrop
   },
   methods:{
-    showHeadMenu(){
-      this.isShowHeadMenu = true
-    },
-    hideHeadMenu(){
-      this.isShowHeadMenu = false
-    }
+    
   }
 }
 </script>

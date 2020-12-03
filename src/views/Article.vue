@@ -3,7 +3,9 @@
         <ArticleCard 
         v-for="article in articleList"
         :key="article.id"
-        :articleObj="article"></ArticleCard>
+        :articleObj="article"
+        @get-article-id="toArticleDetail"
+    ></ArticleCard>
     </div>
 </template>
 <script>
@@ -25,6 +27,11 @@ export default{
                 this.articleList = res.data
             }
         })
+    },
+    methods: {
+        toArticleDetail(articleId){
+            this.$router.push('/article/'+articleId)
+        }
     }
 }
 </script>

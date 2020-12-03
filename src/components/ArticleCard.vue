@@ -1,5 +1,5 @@
 <template>
-  <div class="article-card-container">
+  <div class="article-card-container" @click="toArticleDetail">
     <div class="article-card-img">
       <img :src="articleObj.img" alt="" />
     </div>
@@ -14,7 +14,17 @@
 </template>
 <script>
 export default {
-    props: ['articleObj']
+    props: ['articleObj'],
+    data(){
+      return {
+        articleId: this.articleObj.id
+      }
+    },
+    methods: {
+      toArticleDetail(){
+          this.$emit('get-article-id', this.articleId)
+      }
+    }
 };
 </script>
 <style lang="less" scoped>

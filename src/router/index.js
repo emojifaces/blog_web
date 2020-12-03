@@ -3,6 +3,9 @@ import VueRouter from "vue-router"
 import Index from '../views/Index.vue'
 import Message from '../views/Message.vue'
 import Article from '../views/Article.vue'
+import ArticleDetail from '../views/ArticleDetail.vue'
+import ArticleEdit from '../views/ArticleEdit.vue'
+
 
 Vue.use(VueRouter)
 
@@ -19,6 +22,14 @@ const routes = [
             {
                 path: '/article',
                 component: Article
+            },
+            {
+                path: '/article/editor',
+                component: ArticleEdit
+            },
+            {
+                path: '/article/:articleId',
+                component: ArticleDetail
             }
         ]
     }
