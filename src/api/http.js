@@ -1,7 +1,7 @@
 import axios from 'axios'
 // import {Message} from 'element-ui'
 
-axios.defaults.timeout = 5000
+axios.defaults.timeout = 60000
 axios.defaults.baseURL = 'http://42.51.181.42:18888/api'
 
 axios.interceptors.request.use(

@@ -1,19 +1,21 @@
 <template>
   <div class="article-card-container">
     <div class="article-card-img">
-      <img src="../assets/img/skill_icon.png" alt="" />
+      <img :src="articleObj.img" alt="" />
     </div>
     <div class="article-card-main">
       <div class="article-card-body">
-        <div class="article-title">这是文章标题</div>
-        <div class="article-content">这是文章内容</div>
+        <div class="article-title">{{ articleObj.title }}</div>
+        <div class="article-content">{{ articleObj.content }}</div>
       </div>
-      <div class="article-card-footer">2020-10-26 23:35</div>
+      <div class="article-card-footer">{{ articleObj.create_time }}</div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+    props: ['articleObj']
+};
 </script>
 <style lang="less" scoped>
 .article-card-container {
