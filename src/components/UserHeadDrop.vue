@@ -15,6 +15,8 @@ export default {
         handleCommand(command){
             if (command === 'article') {
                 this.$router.push('/article/editor')
+            } else if (command === 'message') {
+                this.$emit('openMessagePostBox', 'test')
             }
         }
     }

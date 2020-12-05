@@ -1,0 +1,38 @@
+<template>
+    <div class="login-page-container">
+        <el-dialog 
+        title="登录" 
+        :visible.sync="dialogFormVisible"
+        width="20%">
+            <el-form :model="loginForm" class="login-form">
+                <el-form-item label="用户名">
+                    <el-input v-model="loginForm.username" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="密码">
+                    <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button plain @click="dialogFormVisible = false" size="small">取 消</el-button>
+                <el-button plain @click="dialogFormVisible = false" size="small">确 定</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</template>
+<script>
+export default {
+    data(){
+        return{
+            dialogFormVisible: false,
+            loginForm: {}
+        }
+    }
+}
+</script>
+<style lang="less" scoped>
+.login-page-container{
+    .login-form{
+        padding: 0 0.5rem;
+    }
+}
+</style>

@@ -10,6 +10,9 @@
               <router-link to="/article">文章</router-link>
             </div>
           </el-col>
+          <el-col :span="2" class="user-login-btn">
+            <div @click="openLoginBox">登录</div>
+          </el-col>
           <el-col :span="2" :offset="6" class="user-head-drop">
             <user-head-drop></user-head-drop>
           </el-col>
@@ -48,10 +51,15 @@
       <el-backtop><i class="el-icon-arrow-up"></i></el-backtop>
 
     </div>
+    <login-box ref="loginbox"></login-box>
+    <message-post></message-post>
   </div>
 </template>
 <script>
 import UserHeadDrop from '../components/UserHeadDrop.vue'
+import LoginBox from '../components/LoginBox.vue'
+import MessagePost from '../components/MessagePost.vue'
+
 export default {
   name: 'App',
   data(){
@@ -60,10 +68,17 @@ export default {
     }
   },
   components: {
-    UserHeadDrop
+    UserHeadDrop,
+    LoginBox,
+    MessagePost
   },
   methods:{
-    
+    openLoginBox () {
+      this.$refs.loginbox.dialogFormVisible = true
+    },
+    test (data) {
+      console.log(data)
+    }
   }
 }
 </script>

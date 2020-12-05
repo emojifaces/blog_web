@@ -1,19 +1,46 @@
 <template>
-    <div class="articleCoverUpload-container">
-        <div class="pic">
+    <div class="articleCoverUpload-container"  @mouseleave="hideCover">
+        <div class="pic"  @mouseover="showCover">
             <img :src="imgUrl" alt="文章封面">
         </div>
-        <div class="pic-cover">
-            <div class="el-icon-picture-outline"></div>
-            设置文章封面
+        <div class="pic-cover" v-show="isShowCover" @click="clickArticleCOver">
+            <div class="el-icon-picture-outline icon"></div>
+            <div class="title">设置文章封面</div>
         </div>
+        <input type="file" id="articleCoverImg" @change="uploadImg">
     </div>
 </template>
 <script>
 export default {
     data(){
         return {
-            imgUrl: require('../assets/img/default_img.jpg')
+            imgUrl: require('../assets/img/default_img.jpg'),
+            isShowCover: false
+        }
+    },
+    methods: {
+        showCover(){
+            this.isShowCover = true
+        },
+        hideCover(){
+            this.isShowCover = false
+        },
+        clickArticleCOver(){
+            document.getElementById('articleCoverImg').click()
+        },
+        uploadImg(file){
+            const _this = this
+            const img = file.target.files[0]
+            console.log(img)
+            if (img) {
+                const fd = new FileReader()
+                fd.readAsDataURL(img)
+                fd.onloadend = function () {
+                    const imgUrl = this.result
+                    _this.imgUrl = imgUrl
+                }
+                this.$emit('uploadImg', { file: img })
+            }
         }
     }
 }
@@ -23,6 +50,10 @@ export default {
     width: 300px;
     height: 170px;
     position: relative;
+    input{
+        visibility: hidden;
+        display: none;
+    }
     .pic{
         img{
             width: 300px;
@@ -31,12 +62,24 @@ export default {
         }
     }
     .pic-cover{
-        width: 100%;
-        height: 100%;
+        width: 300px;
+        height: 170px;
         position: absolute;
-        background-color: darkgrey;
+        background-color: black;
         top: 0;
-        opacity: 0.5;
+        opacity: 0.6;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        .icon{
+            color: white;
+            font-size: xxx-large;
+        }
+        .title{
+            color: white;
+            margin-top: 0.5rem;
+        }
     }
 }
 </style>
