@@ -19,6 +19,17 @@ export default {
         return{
             dialogVisible: false
         }
+    },
+    computed: {
+        openMessagePostBox(){
+            return this.$store.state.showMessagePostBox
+        }
+    },
+    watch: {
+        openMessagePostBox(){
+            this.dialogVisible = true
+            this.$store.commit('setMessagePostTag', {isOpen: false})
+        }
     }
 }
 </script>

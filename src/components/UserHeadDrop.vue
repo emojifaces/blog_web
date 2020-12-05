@@ -16,7 +16,7 @@ export default {
             if (command === 'article') {
                 this.$router.push('/article/editor')
             } else if (command === 'message') {
-                this.$emit('openMessagePostBox', 'test')
+                this.$store.commit('setMessagePostTag', {isOpen: true})
             }
         }
     }

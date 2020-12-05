@@ -75,9 +75,6 @@ export default {
   methods:{
     openLoginBox () {
       this.$refs.loginbox.dialogFormVisible = true
-    },
-    test (data) {
-      console.log(data)
     }
   }
 }
