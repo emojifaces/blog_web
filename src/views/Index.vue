@@ -10,11 +10,9 @@
               <router-link to="/article">文章</router-link>
             </div>
           </el-col>
-          <el-col :span="2" class="user-login-btn">
-            <div @click="openLoginBox">登录</div>
-          </el-col>
           <el-col :span="2" :offset="6" class="user-head-drop">
-            <user-head-drop></user-head-drop>
+            <user-head-drop v-if="islogin"></user-head-drop>
+            <div @click="openLoginBox" v-else>登录</div>
           </el-col>
         </el-row>
       </div>
@@ -64,7 +62,7 @@ export default {
   name: 'App',
   data(){
     return {
-       
+       islogin: null
     }
   },
   components: {
@@ -75,6 +73,28 @@ export default {
   methods:{
     openLoginBox () {
       this.$refs.loginbox.dialogFormVisible = true
+    }
+  },
+  mounted(){
+    const isLogin = this.$store.state.loginState
+    if (isLogin) {
+      this.islogin = true
+    } else {
+      this.islogin = false
+    }
+  },
+  computed: {
+    loginState(){
+      return this.$store.state.loginState
+    }
+  },
+  watch: {
+    loginState(value){
+      if (value) {
+        this.islogin = true
+      } else {
+        this.islogin = false
+      }
     }
   }
 }

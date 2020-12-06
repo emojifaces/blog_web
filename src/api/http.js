@@ -6,6 +6,7 @@ axios.defaults.baseURL = 'http://42.51.181.42:18888/api'
 
 axios.interceptors.request.use(
     request => {
+        request.headers.auauthorization = 'Bearer ' + localStorage.getItem('jwt')
         return request
     },
     err => Promise.reject(err)

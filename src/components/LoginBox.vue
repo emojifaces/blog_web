@@ -14,7 +14,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button plain @click="dialogFormVisible = false" size="small">取 消</el-button>
-                <el-button plain @click="dialogFormVisible = false" size="small">确 定</el-button>
+                <el-button plain @click="userLogin" size="small">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -25,6 +25,12 @@ export default {
         return{
             dialogFormVisible: false,
             loginForm: {}
+        }
+    },
+    methods: {
+        userLogin(){
+            this.dialogFormVisible = false
+            this.$store.commit('setLoginState', {isLogin: true})
         }
     }
 }

@@ -17,6 +17,8 @@ export default {
                 this.$router.push('/article/editor')
             } else if (command === 'message') {
                 this.$store.commit('setMessagePostTag', {isOpen: true})
+            } else if (command === 'logout') {
+                this.$store.commit('setLoginState', {isLogin: false})
             }
         }
     }
