@@ -3,10 +3,11 @@ import axios from 'axios'
 
 axios.defaults.timeout = 60000
 axios.defaults.baseURL = 'http://42.51.181.42:18888/api'
+// axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
 axios.interceptors.request.use(
     request => {
-        request.headers.auauthorization = 'Bearer ' + localStorage.getItem('jwt')
+        // request.headers.authorization = 'Bearer ' + localStorage.getItem('jwt')
         return request
     },
     err => Promise.reject(err)

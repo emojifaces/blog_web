@@ -9,6 +9,15 @@
             </div>
         </div>
         <div class="card-content">{{ messageinfo.content }}</div>
+        <div class="card-img" v-if="messageinfo.images">
+            <el-image
+            v-for="item in messageinfo.images"
+            :key="item.id"
+            style="width: 100px; height: 100px"
+            :src="item.img" 
+            :preview-src-list="previewList">
+            </el-image>
+        </div>
     </div>
 </template>
 <script>
@@ -16,11 +25,21 @@ export default {
     props: ['messageinfo'],
     data(){
         return {
-
+            imgVisible: false,
+            imgUrl: '',
+            previewList: []
         }
     },
     methods: {
-        
+        handlePicturePreview (imgUrl) {
+            this.imgUrl = imgUrl
+            this.imgVisible = true
+        }
+    },
+    mounted(){
+        if (this.messageinfo.images){
+            this.previewList = this.messageinfo.images.map((item) => item.img)
+        }
     }
 } 
 </script>

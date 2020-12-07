@@ -1,6 +1,6 @@
 <template>
     <div class="indexCarousel-container">
-        <el-carousel height="600px" direction="vertical" autoplay>
+        <el-carousel height="32rem" autoplay>
             <el-carousel-item v-for="item in imgList" :key="item">
                 <img :src="item" alt="" style="width:100%;height:100%;">
             </el-carousel-item>

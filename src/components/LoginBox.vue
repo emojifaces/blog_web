@@ -38,7 +38,6 @@ export default {
             const loginForm = this.loginForm
             this.$axios.post('/token/',loginForm)
             .then(res => {
-                console.log(res)
                 if (res.access) {
                     const jwt = res.access
                     localStorage.setItem('jwt', jwt)

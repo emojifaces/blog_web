@@ -32,15 +32,50 @@ export default {
     data(){
         return {
             title: '',
-            content: '',
             isShowBtn: false,
             img: null
         }
     },
     methods: {
         saveArticle () {
+            const loading = this.$loading({
+                lock: true,
+                text: '文章发布中...',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            })
             const content = this.$refs.richtext.editorContent
-            console.log(content)
+            if (!this.title) {
+                this.$message({
+                    showClose: true,
+                    message: '标题不能为空',
+                    type: 'error'
+                })
+            } else if (!content) {
+                this.$message({
+                    showClose: true,
+                    message: '正文不能为空',
+                    type: 'error'
+                })
+            } else {
+                const fd = new FormData()
+                fd.set('title', this.title)
+                fd.set('content', content)
+                if (this.img) {
+                    fd.set('img', this.img)
+                }
+                this.$axios.post('/article/', fd, {
+                    headers: {
+                        'authorization': 'Bearer ' + localStorage.getItem('jwt')
+                    }
+                }).then(res => {
+                    if (res.status === 1) {
+                        this.$router.push('/article')
+                    }
+                }).finally(() => {
+                    loading.close()
+                })
+            }
         },
         clearArticle () {
             this.$refs.richtext.clearArticle()

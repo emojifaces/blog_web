@@ -31,7 +31,6 @@ export default {
         uploadImg(file){
             const _this = this
             const img = file.target.files[0]
-            console.log(img)
             if (img) {
                 const fd = new FileReader()
                 fd.readAsDataURL(img)

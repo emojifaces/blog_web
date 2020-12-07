@@ -25,7 +25,7 @@
             </el-upload>
             <span slot="footer" class="dialog-footer">
                 <el-button plain  @click="dialogVisible = false">取 消</el-button>
-                <el-button plain  type="primary" @click="dialogVisible = false">确 定</el-button>
+                <el-button plain  type="primary" @click="releaseMessage">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -57,6 +57,42 @@ export default {
                 type: 'error'
             })
         },
+        // 发布动态
+        releaseMessage () {
+            if (!this.messageConetnt) {
+                this.$message({
+                    showClose: true,
+                    message: '内容不能为空',
+                    type: 'error'
+                })
+            } else {
+                const loading = this.$loading({
+                    lock: true,
+                    text: '动态发布中...',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.7)'
+                })
+                const fd = new FormData()
+                fd.set('content', this.messageConetnt)
+                if (this.imgList) {
+                    for (let item of this.imgList) {
+                        fd.append('imgs', item.raw)
+                    }
+                }
+                this.$axios.post('/message/',fd,{
+                    headers: {
+                        'authorization': 'Bearer ' + localStorage.getItem('jwt')
+                    }
+                }).then(res => {
+                    if (res.status === 1) {
+                        this.dialogVisible = false
+                    }
+                }).finally(() => {
+                    loading.close()
+                })
+            }
+            
+        }
     },
     computed: {
         openMessagePostBox(){

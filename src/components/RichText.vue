@@ -1,7 +1,6 @@
 <template>
     <div class="rich-text-container">
         <div id="editor"></div>
-        {{editorContent}}
     </div>
 </template>
 <script>

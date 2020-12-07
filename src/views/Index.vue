@@ -12,7 +12,7 @@
           </el-col>
           <el-col :span="2" :offset="6" class="user-head-drop">
             <user-head-drop v-if="islogin"></user-head-drop>
-            <div @click="openLoginBox" v-else>登录</div>
+            <div class="user-login-btn" @click="openLoginBox" v-else>登录</div>
           </el-col>
         </el-row>
       </div>
