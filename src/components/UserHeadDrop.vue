@@ -18,6 +18,7 @@ export default {
             } else if (command === 'message') {
                 this.$store.commit('setMessagePostTag', {isOpen: true})
             } else if (command === 'logout') {
+                localStorage.removeItem('jwt')
                 this.$store.commit('setLoginState', {isLogin: false})
             }
         }

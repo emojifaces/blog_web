@@ -20,12 +20,21 @@ export default{
         ArticleCard
     },
     mounted(){
+        const loading = this.$loading({
+                lock: true,
+                text: '文章加载中',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            })
         this.$axios.get('/article')
         .then(res => {
             console.log(res)
             if (res.status === 1) {
                 this.articleList = res.data
             }
+        })
+        .finally(() => {
+            loading.close()
         })
     },
     methods: {

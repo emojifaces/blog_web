@@ -5,7 +5,7 @@ import Message from '../views/Message.vue'
 import Article from '../views/Article.vue'
 import ArticleDetail from '../views/ArticleDetail.vue'
 import ArticleEdit from '../views/ArticleEdit.vue'
-
+import IndexCarousel from '../components/IndexCarousel.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +15,10 @@ const routes = [
         path: '',
         component:Index,
         children: [
+            {
+                path: '',
+                component: IndexCarousel
+            },
             {
                 path: '/message',
                 component: Message

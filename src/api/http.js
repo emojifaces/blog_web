@@ -21,7 +21,7 @@ axios.interceptors.response.use(
         }
     },
     error => {
-        console.log('出错了：',error)
+        console.log('出错了：',error.response)
     }
 )
 export default axios

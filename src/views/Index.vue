@@ -6,7 +6,7 @@
           <el-col :span="4"><div class="home-icon"><router-link to="/">Keymaker</router-link></div></el-col>
           <el-col :span="4" :offset="4"><div class="message-icon"><router-link to="/message">动态</router-link></div></el-col>
           <el-col :span="4">
-            <div class="article-icon" @mouseover="articleSort=true" @mouseleave="articleSort=false">
+            <div class="article-icon">
               <router-link to="/article">文章</router-link>
             </div>
           </el-col>

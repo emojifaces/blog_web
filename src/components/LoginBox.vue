@@ -29,8 +29,26 @@ export default {
     },
     methods: {
         userLogin(){
-            this.dialogFormVisible = false
-            this.$store.commit('setLoginState', {isLogin: true})
+            const loading = this.$loading({
+                lock: true,
+                text: '登陆中',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            })
+            const loginForm = this.loginForm
+            this.$axios.post('/token/',loginForm)
+            .then(res => {
+                console.log(res)
+                if (res.access) {
+                    const jwt = res.access
+                    localStorage.setItem('jwt', jwt)
+                    this.$store.commit('setLoginState', {isLogin: true})
+                    this.dialogFormVisible = false
+                }
+            }).finally(() => {
+                loading.close()
+            })
+            
         }
     }
 }
