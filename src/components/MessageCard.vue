@@ -11,9 +11,9 @@
         <div class="card-content">{{ messageinfo.content }}</div>
         <div class="card-img" v-if="messageinfo.images">
             <el-image
+            class="message-img"
             v-for="item in messageinfo.images"
             :key="item.id"
-            style="width: 100px; height: 100px"
             :src="item.img" 
             :preview-src-list="previewList">
             </el-image>
@@ -63,6 +63,15 @@ export default {
     .card-content{
         padding-left: 50px;
         font-size: small;
+    }
+    .card-img{
+        padding-left: 50px;
+        width: 50%;
+        .message-img{
+            margin: 1rem 1rem 1rem 0;
+            width: 100px;
+            height: 100px;
+        }
     }
 }
 </style>
