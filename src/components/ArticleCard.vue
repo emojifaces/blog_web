@@ -10,11 +10,16 @@
       </div>
       <div class="article-card-footer">{{ articleObj.create_time }}</div>
     </div>
+    <card-drop-down class="cardDropDown"></card-drop-down>
   </div>
 </template>
 <script>
+import CardDropDown from '../components/CardDropDown.vue'
 export default {
     props: ['articleObj'],
+    components: {
+      CardDropDown,
+    },
     data(){
       return {
         articleId: this.articleObj.id
@@ -45,7 +50,7 @@ export default {
     }
   }
   .article-card-main {
-    width: 80%;
+    width: 75%;
     padding: 10px 10px;
     display: flex;
     flex-direction: column;
@@ -59,6 +64,9 @@ export default {
         font-size: 13px;
       }
     }
+  }
+  .cardDropDown{
+    padding: 1rem;
   }
 }
 </style>

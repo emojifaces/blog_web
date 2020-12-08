@@ -6,6 +6,7 @@ import Article from '../views/Article.vue'
 import ArticleDetail from '../views/ArticleDetail.vue'
 import ArticleEdit from '../views/ArticleEdit.vue'
 import IndexCarousel from '../components/IndexCarousel.vue'
+import UserInfo from '../views/UserInfo.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,10 @@ const routes = [
             {
                 path: '/article/:articleId',
                 component: ArticleDetail
+            },
+            {
+                path: '/userInfo',
+                component: UserInfo
             }
         ]
     }

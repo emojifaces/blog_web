@@ -20,6 +20,8 @@ export default {
             } else if (command === 'logout') {
                 localStorage.removeItem('jwt')
                 this.$store.commit('setLoginState', {isLogin: false})
+            } else if (command === 'userinfo') {
+                this.$router.push('/userInfo')
             }
         }
     }
