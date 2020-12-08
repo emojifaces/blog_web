@@ -22,7 +22,7 @@ export default{
     mounted(){
         const loading = this.$loading({
                 lock: true,
-                text: '文章加载中',
+                text: '文章加载中...',
                 spinner: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.7)'
             })

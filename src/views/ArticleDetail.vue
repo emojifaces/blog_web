@@ -31,6 +31,12 @@ export default {
         }
     },
     mounted(){
+        const loading = this.$loading({
+                lock: true,
+                text: '文章加载中...',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            })
         this.$axios.get('/article/'+this.$route.params.articleId)
         .then(res => {
             console.log(res)
@@ -41,6 +47,8 @@ export default {
                 this.img = res.data.img
                 this.author = res.data.user
             }
+        }).finally(() => {
+            loading.close()
         })
     },
     methods:{
