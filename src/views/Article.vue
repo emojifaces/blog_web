@@ -5,6 +5,7 @@
         :key="article.id"
         :articleObj="article"
         @get-article-id="toArticleDetail"
+        @delete="handleDelete"
     ></ArticleCard>
     </div>
 </template>
@@ -40,6 +41,14 @@ export default{
     methods: {
         toArticleDetail(articleId){
             this.$router.push('/article/'+articleId)
+        },
+        handleDelete(id){
+            this.articleList.forEach(item => {
+                if (item.id === id) {
+                    this.articleList.splice(item, 1)
+                }
+            })
+            this.$message.success('删除成功')
         }
     }
 }

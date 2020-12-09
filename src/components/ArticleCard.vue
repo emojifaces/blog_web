@@ -37,7 +37,7 @@ export default {
           }
         }).then(res => {
           if (res.status === 1) {
-            this.$message.success('删除成功')
+            this.$emit('delete', this.articleId)
           }
         })
       },

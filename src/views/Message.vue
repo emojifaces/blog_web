@@ -32,9 +32,9 @@ import MessageCard from '../components/MessageCard.vue'
             this.messageList.forEach((item) => {
               if (item.id === id) {
                 this.messageList.splice(item, 1)
-                this.$message.success('删除成功')
               }
             })
+            this.$message.success('删除成功')
           }
         },
         mounted(){
