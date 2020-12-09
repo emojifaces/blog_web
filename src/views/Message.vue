@@ -8,7 +8,7 @@
           :key="message.id"
           >
             <el-card>
-                <MessageCard :messageinfo="message"></MessageCard>
+                <MessageCard :messageinfo="message" @delete="handleDelete"></MessageCard>
             </el-card>
           </el-timeline-item>
       </el-timeline>
@@ -25,6 +25,17 @@ import MessageCard from '../components/MessageCard.vue'
         },
         components:{
             MessageCard
+        },
+        methods: {
+          // 删除动态
+          handleDelete (id) {
+            this.messageList.forEach((item) => {
+              if (item.id === id) {
+                this.messageList.splice(item, 1)
+                this.$message.success('删除成功')
+              }
+            })
+          }
         },
         mounted(){
           const loading = this.$loading({

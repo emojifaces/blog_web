@@ -10,7 +10,7 @@
       </div>
       <div class="article-card-footer">{{ articleObj.create_time }}</div>
     </div>
-    <card-drop-down class="cardDropDown"></card-drop-down>
+    <card-drop-down class="cardDropDown" @delete="handleDelete" @edit="handleEdit" @share="handleShare"></card-drop-down>
   </div>
 </template>
 <script>
@@ -28,6 +28,24 @@ export default {
     methods: {
       toArticleDetail(){
           this.$emit('get-article-id', this.articleId)
+      },
+      handleDelete(){
+        const url = '/article/' + this.articleObj.id
+        this.$axios.delete(url, {
+          headers: {
+            authorization: 'Bearer ' + localStorage.getItem('jwt')
+          }
+        }).then(res => {
+          if (res.status === 1) {
+            this.$message.success('删除成功')
+          }
+        })
+      },
+      handleEdit(){
+        console.log('编辑')
+      },
+      handleShare(){
+        console.log('分享')
       }
     }
 };

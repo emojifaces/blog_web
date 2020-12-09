@@ -1,6 +1,6 @@
 <template>
     <div class="card-dropdown-container">
-        <el-dropdown>
+        <el-dropdown @command="handleCommand">
             <i class="el-icon-arrow-down el-icon--right"></i>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item icon="el-icon-edit" command="edit">编辑</el-dropdown-item>
@@ -20,6 +20,14 @@ export default {
     methods: {
         handleCommand (command) {
             console.log(command)
+            if (command === 'edit') {
+                this.$emit('edit')
+            } else if (command === 'share') {
+                this.$emit('share')
+            } else if (command === 'delete') {
+                this.$emit('delete')
+                console.log('删除')
+            }
         }
     }
 }

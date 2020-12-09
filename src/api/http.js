@@ -26,19 +26,10 @@ axios.interceptors.response.use(
         if (error.response.status) {
             switch (error.response.status) {
                 case 401:
-                    if (error.response.data.code === 'token_not_valid') {
-                        Message({
-                            message: '认证过期，请重新登录',
-                            type: 'warning'
-                        })
-                    }
-                    Message({
-                        message: '账号或密码错误',
-                        type: 'error'
-                    })
+                    Message.error(error.response.data.detail)
                     break
                 default:
-                    Message(error.response.data)
+                    Message.error(error.response.data)
             }
         }
     }

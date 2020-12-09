@@ -7,7 +7,7 @@
             <div class="user-name">
                 <span>{{ messageinfo.user.nickname }}</span>
             </div>
-            <card-drop-down class="cardDropDown"></card-drop-down>
+            <card-drop-down class="cardDropDown" @delete="handleDelete" @edit="handleEdit" @share="handleShare"></card-drop-down>
         </div>
         <div class="card-content">{{ messageinfo.content }}</div>
         <div class="card-img" v-if="messageinfo.images">
@@ -36,9 +36,32 @@ export default {
         }
     },
     methods: {
+        // 查看图片
         handlePicturePreview (imgUrl) {
             this.imgUrl = imgUrl
             this.imgVisible = true
+        },
+        // 删除动态
+        handleDelete () {
+            const url = '/message/' + this.messageinfo.id
+            this.$axios.delete(url, {
+                headers: {
+                    authorization: 'Bearer ' + localStorage.getItem('jwt')
+                }
+            }).then(res => {
+                console.log(res)
+                if (res.status === 1) {
+                    this.$emit('delete', this.messageinfo.id )
+                }
+            })    
+        },
+        // 编辑动态
+        handleEdit () {
+            console.log('编辑动态')
+        },
+        // 分享到微博
+        handleShare () {
+            console.log('分享到微博')
         }
     },
     mounted(){
