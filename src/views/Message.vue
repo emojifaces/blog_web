@@ -6,6 +6,8 @@
           placement="top"
           v-for="message in messageList"
           :key="message.id"
+          style="overflow:auto"
+          v-infinite-scroll="loadMoreMessage"
           >
             <el-card>
                 <MessageCard :messageinfo="message" @delete="handleDelete"></MessageCard>
@@ -35,6 +37,17 @@ import MessageCard from '../components/MessageCard.vue'
               }
             })
             this.$message.success('删除成功')
+          },
+          // 加载下一页动态
+          loadMoreMessage () {
+            const url = '/message/?offset='+this.messageList.length
+            this.$axios.get(url).then(res => {
+              if (res.status === 1){
+                this.messageList.concat(res.data)
+              } else {
+                this.$message.warning('我是有底线的')
+              }
+            })
           }
         },
         mounted(){
