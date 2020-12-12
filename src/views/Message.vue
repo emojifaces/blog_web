@@ -1,13 +1,12 @@
 <template>
   <div class="message-container">
-      <el-timeline>
+      <el-timeline
+      style="height:auto;">
           <el-timeline-item 
           :timestamp="message.create_time" 
           placement="top"
           v-for="message in messageList"
           :key="message.id"
-          style="overflow:auto"
-          v-infinite-scroll="loadMoreMessage"
           >
             <el-card>
                 <MessageCard :messageinfo="message" @delete="handleDelete"></MessageCard>
@@ -22,7 +21,8 @@ import MessageCard from '../components/MessageCard.vue'
     export default{
         data(){
             return {
-              messageList: []
+              messageList: [],
+              isLoadMoreMessage: false
             }
         },
         components:{
@@ -38,17 +38,28 @@ import MessageCard from '../components/MessageCard.vue'
             })
             this.$message.success('删除成功')
           },
+          
           // 加载下一页动态
-          loadMoreMessage () {
-            const url = '/message/?offset='+this.messageList.length
-            this.$axios.get(url).then(res => {
-              if (res.status === 1){
-                this.messageList.concat(res.data)
-              } else {
-                this.$message.warning('我是有底线的')
-              }
-            })
-          }
+          loadMoreMessage(){
+            let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+            let clientHeight = document.documentElement.clientHeight
+            let scrollHeight = document.documentElement.scrollHeight
+            if (scrollTop + clientHeight >= scrollHeight - 10 && this.isLoadMoreMessage == false) {
+              this.isLoadMoreMessage = true
+              const url = '/message/?offset=' + this.messageList.length
+              this.$axios.get(url).then(res => {
+                if (res.status === 1) {
+                  this.messageList = this.messageList.concat(res.data)
+                  this.isLoadMoreMessage = false
+                } else {
+                  this.$message.warning('我是有底线的')
+                }
+              })
+            }
+          },
+        },
+        created(){
+          window.addEventListener('scroll', this.loadMoreMessage)
         },
         mounted(){
           const loading = this.$loading({
@@ -57,11 +68,14 @@ import MessageCard from '../components/MessageCard.vue'
                 spinner: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.7)'
             })
-          this.$axios.get('/message')
+          this.$axios.get('/message/')
           .then(res => this.messageList = res.data)
           .finally(() => {
             loading.close()
           })
+        },
+        destroyed(){
+          window.removeEventListener('scroll', this.loadMoreMessage)
         }
     }
 </script>

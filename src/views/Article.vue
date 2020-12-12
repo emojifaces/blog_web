@@ -14,11 +14,15 @@ import ArticleCard from '../components/ArticleCard.vue'
 export default{
     data(){
         return {
-            articleList: []
+            articleList: [],
+            isLoadMoreArticle: false
         }
     },
     components:{
         ArticleCard
+    },
+    created(){
+        window.addEventListener('scroll', this.loadMoreArticle)
     },
     mounted(){
         const loading = this.$loading({
@@ -29,7 +33,6 @@ export default{
             })
         this.$axios.get('/article')
         .then(res => {
-            console.log(res)
             if (res.status === 1) {
                 this.articleList = res.data
             }
@@ -37,6 +40,9 @@ export default{
         .finally(() => {
             loading.close()
         })
+    },
+    destroyed(){
+        window.removeEventListener('scroll', this.loadMoreArticle)
     },
     methods: {
         toArticleDetail(articleId){
@@ -49,6 +55,23 @@ export default{
                 }
             })
             this.$message.success('删除成功')
+        },
+        loadMoreArticle(){
+            let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+            let clientHeight = document.documentElement.clientHeight
+            let scrollHeight = document.documentElement.scrollHeight
+            if (scrollTop + clientHeight >= scrollHeight - 10 && this.isLoadMoreArticle == false) {
+              this.isLoadMoreArticle = true
+              const url = '/article/?offset=' + this.articleList.length
+              this.$axios.get(url).then(res => {
+                if (res.status === 1) {
+                  this.articleList = this.articleList.concat(res.data)
+                  this.isLoadMoreArticle = false
+                } else {
+                  this.$message.warning('我是有底线的')
+                }
+              })
+            }
         }
     }
 }

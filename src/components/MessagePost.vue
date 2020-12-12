@@ -85,6 +85,7 @@ export default {
                     }
                 }).then(res => {
                     if (res.status === 1) {
+                        console.log(res.data)
                         this.dialogVisible = false
                     }
                 }).finally(() => {
