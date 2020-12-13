@@ -2,12 +2,14 @@ import axios from 'axios'
 import {Message} from 'element-ui'
 
 axios.defaults.timeout = 60000
-axios.defaults.baseURL = 'http://42.51.181.42:18888/api'
-// axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
+// axios.defaults.baseURL = 'http://42.51.181.42:18888/api'
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
 axios.interceptors.request.use(
     request => {
-        // request.headers.authorization = 'Bearer ' + localStorage.getItem('jwt')
+        if (localStorage.getItem('jwt')) {
+            request.headers.authorization = 'Bearer ' + localStorage.getItem('jwt')
+        }
         return request
     },
     err => Promise.reject(err)
@@ -27,6 +29,9 @@ axios.interceptors.response.use(
             switch (error.response.status) {
                 case 401:
                     Message.error(error.response.data.detail)
+                    break
+                case 400:
+                    Message.error(error.response.data[0])
                     break
                 default:
                     Message.error(error.response.data)

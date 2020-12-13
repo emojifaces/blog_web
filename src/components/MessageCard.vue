@@ -7,7 +7,7 @@
             <div class="user-name">
                 <span>{{ messageinfo.user.nickname }}</span>
             </div>
-            <card-drop-down class="cardDropDown" @delete="handleDelete" @edit="handleEdit" @share="handleShare"></card-drop-down>
+            <card-drop-down class="cardDropDown" v-if="messageinfo.is_mine" @delete="handleDelete" @edit="handleEdit" @share="handleShare"></card-drop-down>
         </div>
         <div class="card-content">{{ messageinfo.content }}</div>
         <div class="card-img" v-if="messageinfo.images">
@@ -44,11 +44,7 @@ export default {
         // 删除动态
         handleDelete () {
             const url = '/message/' + this.messageinfo.id
-            this.$axios.delete(url, {
-                headers: {
-                    authorization: 'Bearer ' + localStorage.getItem('jwt')
-                }
-            }).then(res => {
+            this.$axios.delete(url).then(res => {
                 console.log(res)
                 if (res.status === 1) {
                     this.$emit('delete', this.messageinfo.id )

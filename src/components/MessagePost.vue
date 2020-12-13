@@ -79,13 +79,9 @@ export default {
                         fd.append('imgs', item.raw)
                     }
                 }
-                this.$axios.post('/message/',fd,{
-                    headers: {
-                        'authorization': 'Bearer ' + localStorage.getItem('jwt')
-                    }
-                }).then(res => {
+                this.$axios.post('/message/',fd).then(res => {
                     if (res.status === 1) {
-                        console.log(res.data)
+                        this.$store.commit('addMessage', {data: res.data})
                         this.dialogVisible = false
                     }
                 }).finally(() => {

@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         showMessagePostBox: false,
-        loginState: !!localStorage.getItem('jwt')
+        loginState: !!localStorage.getItem('jwt'),
+        newMessage: {},
     },
     mutations: {
         setMessagePostTag(state, payload){
@@ -14,6 +15,9 @@ export default new Vuex.Store({
         },
         setLoginState(state, payload){
             state.loginState = payload.isLogin
-        }
+        },
+        addMessage(state, payload){
+            state.newMessage = payload.data
+        },
     }
 })

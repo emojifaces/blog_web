@@ -43,6 +43,9 @@ export default {
                     localStorage.setItem('jwt', jwt)
                     this.$store.commit('setLoginState', {isLogin: true})
                     this.dialogFormVisible = false
+                    let userInfoJson = JSON.stringify(res.userInfo)
+                    localStorage.setItem('userInfo', userInfoJson)
+                    location.reload()
                 }
             }).finally(() => {
                 loading.close()

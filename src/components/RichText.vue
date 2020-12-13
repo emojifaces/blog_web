@@ -34,11 +34,7 @@ export default {
             const file = resultFiles[0]
             const fd = new FormData()
             fd.set('file', file)
-            _this.$axios.post('/wangEditor_uploadImg', fd, {
-                headers: {
-                    authorization: 'Bearer ' + localStorage.getItem('jwt')
-                }
-            }).then((res => {
+            _this.$axios.post('/wangEditor_uploadImg', fd).then((res => {
                 if (res.errno === 0) {
                     const imgUrl = res.data
                     insertImgFn(imgUrl)

@@ -11,7 +11,7 @@
             </div>
           </el-col>
           <el-col :span="2" :offset="6" class="user-head-drop">
-            <user-head-drop v-if="islogin"></user-head-drop>
+            <user-head-drop v-if="islogin" :loginUserHead="userHead"></user-head-drop>
             <div class="user-login-btn" @click="openLoginBox" v-else>登录</div>
           </el-col>
         </el-row>
@@ -25,22 +25,26 @@
             <img src="../assets/img/person_background.jpg" alt="">
           </div>
           <div class="profile-head">
-            <img src="../assets/img/myhead.jpg" alt="">
+            <img :src="userHead" alt="">
           </div>
           <div class="profile-name">
-            <span>Keymaker</span>
-            <img src="../assets/img/male.png" alt="">
+            <span>{{nickname}}</span>
+            <img v-if="sex === '男'" src="../assets/img/male.png" alt="">
+            <img v-else-if="sex === '女'" src="../assets/img/female.png" alt="">
+          </div>
+          <div class="profile-info">
+            <span>简介：{{ profile }}</span>
           </div>
           <div class="profile-divider">
             <el-divider><img src="../assets/img/profile_icon.png" alt=""></el-divider>
           </div>
           <div class="profile-weibo">
             <img src="../assets/img/weibo_icon.png" alt="">
-            <span> : Juice_Nasty</span>
+            <span> : {{ weibo }}</span>
           </div>
           <div class="profile-email">
             <img src="../assets/img/email_icon.png" alt="">
-            <span> : 1079980583@qq.com</span>
+            <span> : {{ email }}</span>
           </div>
         </div>
       </div>
@@ -62,7 +66,21 @@ export default {
   name: 'App',
   data(){
     return {
-       islogin: null
+       islogin: null,
+       defaultUserInfo: {
+         userHead: require('../assets/img/myhead.jpg'),
+         nickname: 'Keymaker',
+         sex: '男',
+         profile: '一个帅哥',
+         weibo: 'Juice_Nasty',
+         email: '1079980583@qq.com'
+       },
+       userHead: require('../assets/img/myhead.jpg'),
+       nickname: 'Keymaker',
+       sex: '男',
+       profile: '一个帅哥',
+       weibo: 'Juice_Nasty',
+       email: '1079980583@qq.com'
     }
   },
   components: {
@@ -79,6 +97,14 @@ export default {
     const isLogin = this.$store.state.loginState
     if (isLogin) {
       this.islogin = true
+      // 初始化已登录用户信息
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      this.userHead = userInfo.user_head
+      this.nickname = userInfo.nickname
+      this.sex = userInfo.sex
+      this.profile = userInfo.profile
+      this.weibo = userInfo.weibo
+      this.email = userInfo.email
     } else {
       this.islogin = false
     }
@@ -86,13 +112,26 @@ export default {
   computed: {
     loginState(){
       return this.$store.state.loginState
+    },
+    loginUserInfo(){
+      return this.$store.state.userInfo
     }
   },
   watch: {
     loginState(value){
       if (value) {
+        // 登录后
         this.islogin = true
+        // 初始化登录用户信息
+        // const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        // this.userHead = userInfo.user_head
+        // this.nickname = userInfo.nickname
+        // this.sex = userInfo.sex
+        // this.profile = userInfo.profile
+        // this.weibo = userInfo.weibo
+        // this.email = userInfo.email
       } else {
+        // 退出登录
         this.islogin = false
       }
     }

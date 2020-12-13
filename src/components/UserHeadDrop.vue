@@ -1,6 +1,6 @@
 <template>
     <el-dropdown class="user-head-box" @command="handleCommand">
-        <img src="../assets/img/myhead.jpg" alt="用户头像">
+        <img :src="loginUserHead" alt="用户头像">
         <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="message">发布动态</el-dropdown-item>
             <el-dropdown-item command="article">发布文章</el-dropdown-item>
@@ -11,6 +11,7 @@
 </template>
 <script>
 export default {
+    props: ['loginUserHead'],
     methods: {
         handleCommand(command){
             if (command === 'article') {
@@ -20,6 +21,7 @@ export default {
             } else if (command === 'logout') {
                 localStorage.removeItem('jwt')
                 this.$store.commit('setLoginState', {isLogin: false})
+                location.reload()
             } else if (command === 'userinfo') {
                 this.$router.push('/userInfo')
             }

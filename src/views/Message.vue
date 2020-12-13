@@ -76,6 +76,17 @@ import MessageCard from '../components/MessageCard.vue'
         },
         destroyed(){
           window.removeEventListener('scroll', this.loadMoreMessage)
+        },
+        computed: {
+          newMessage(){
+            return this.$store.state.newMessage
+          }
+        },
+        watch: {
+          newMessage(data){
+            // 监听发布动态，动态加载数据
+            this.messageList.unshift(data)
+          }
         }
     }
 </script>

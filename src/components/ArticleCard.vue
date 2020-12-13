@@ -10,7 +10,7 @@
       </div>
       <div class="article-card-footer">{{ articleObj.create_time }}</div>
     </div>
-    <card-drop-down class="cardDropDown" @delete="handleDelete" @edit="handleEdit" @share="handleShare"></card-drop-down>
+    <card-drop-down class="cardDropDown" v-if="articleObj.is_mine" @delete="handleDelete" @edit="handleEdit" @share="handleShare"></card-drop-down>
   </div>
 </template>
 <script>
@@ -31,11 +31,7 @@ export default {
       },
       handleDelete(){
         const url = '/article/' + this.articleObj.id
-        this.$axios.delete(url, {
-          headers: {
-            authorization: 'Bearer ' + localStorage.getItem('jwt')
-          }
-        }).then(res => {
+        this.$axios.delete(url).then(res => {
           if (res.status === 1) {
             this.$emit('delete', this.articleId)
           }

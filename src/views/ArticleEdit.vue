@@ -64,11 +64,7 @@ export default {
                 if (this.img) {
                     fd.set('img', this.img)
                 }
-                this.$axios.post('/article/', fd, {
-                    headers: {
-                        'authorization': 'Bearer ' + localStorage.getItem('jwt')
-                    }
-                }).then(res => {
+                this.$axios.post('/article/', fd).then(res => {
                     if (res.status === 1) {
                         this.$router.push('/article')
                     }
