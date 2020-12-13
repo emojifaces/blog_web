@@ -40,12 +40,12 @@
                         <img src="../assets/img/password_icon.png" alt="">
                     </div>
                 </template>
-                <el-form label-width="10%">
+                <el-form label-width="10%" status-icon>
                     <el-form-item label="新密码">
                         <el-input v-model="password" type="password"></el-input>
                     </el-form-item>
                     <el-form-item label="确认密码">
-                        <el-input type="password"></el-input>
+                        <el-input v-model="checkpassword" type="password"></el-input>
                     </el-form-item>
                 </el-form>
             </el-collapse-item>
@@ -59,6 +59,7 @@ export default {
             activeNames: ['1'],
             userInfo: {},
             password: '',
+            checkpassword: '',
         }
     },
     methods: {
@@ -79,9 +80,19 @@ export default {
             }
             this.$axios.post('/user/update_user_info/', fd)
             .then(res => {
-                console.log(res)
+                console.log('save success',res)
                 if (res.status === 1) {
                     this.$message.success('保存成功')
+                    const userInfo = res.data
+                    let sex = userInfo.sex
+                    if (sex === 0) {
+                        userInfo.sex = '女'
+                    } else if (sex === 1) {
+                        userInfo.sex = '男'
+                    } else {
+                        userInfo.sex = '保密'
+                    }
+                    localStorage.setItem('userInfo', JSON.stringify(userInfo))
                     location.reload()
                 } else {
                     this.$message.error('保存失败')

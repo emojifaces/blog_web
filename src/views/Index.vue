@@ -122,14 +122,6 @@ export default {
       if (value) {
         // 登录后
         this.islogin = true
-        // 初始化登录用户信息
-        // const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-        // this.userHead = userInfo.user_head
-        // this.nickname = userInfo.nickname
-        // this.sex = userInfo.sex
-        // this.profile = userInfo.profile
-        // this.weibo = userInfo.weibo
-        // this.email = userInfo.email
       } else {
         // 退出登录
         this.islogin = false
