@@ -45,14 +45,23 @@ export default {
         userRegister(){
             this.$refs.registerForm.validate((valid) => {
                 if (valid) {
+                    const loading = this.$loading({
+                        lock: true,
+                        text: '请稍等...',
+                        spinner: 'el-icon-loading',
+                        background: 'rgba(0, 0, 0, 0.7)'
+                    })
                     const registerForm = this.registerForm
                     this.$axios.post('/user/register/', registerForm)
                     .then(res => {
                         if (res.status === 1) {
                             this.$message.success('注册成功！')
+                            this.dialogFormVisible = false
                         } else {
                             this.$message.error('注册失败！')
                         }
+                    }).finally(() => {
+                        loading.close()
                     })
                 } else {
                     this.$message.error('输入有误！')

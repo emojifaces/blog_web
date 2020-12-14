@@ -5,7 +5,7 @@
         v-model="title"
         clearable>
         </el-input>
-        <rich-text  ref="richtext"></rich-text>
+        <rich-text ref="richtext" :oldContent="originalContent"></rich-text>
         <div class="set-article-cover">
             <div class="article-cover-title">
                 <div>设置封面</div>
@@ -33,7 +33,8 @@ export default {
         return {
             title: '',
             isShowBtn: false,
-            img: null
+            img: null,
+            originalContent: ''
         }
     },
     methods: {
@@ -86,7 +87,33 @@ export default {
             this.$refs.articlecover.imgUrl = require('../assets/img/default_img.jpg')
             this.isShowBtn = false
         }
-    }
+    },
+    mounted(){
+        const id = this.$route.params.articleId
+        if (id) {
+            // 文章编辑模式
+            const loading = this.$loading({
+                lock: true,
+                text: '加载中...',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            })
+            this.$axios.get('/article/' + id)
+            .then(res => {
+                console.log(res)
+                if (res.status === 1) {
+                    this.title = res.data.title
+                    this.originalContent = res.data.content
+                }
+            }).finally(() => {
+                loading.close()
+            })
+        } else {
+            // 文章创建模式
+            this.title = ''
+            this.originalContent = ''
+        }
+    },
 }
 </script>
 <style lang="less" scoped>

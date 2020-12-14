@@ -102,6 +102,12 @@ export default {
             // 更新用户信息
             this.$refs.userInfoForm.validate((valid) => {
                 if (valid) {
+                    const loading = this.$loading({
+                        lock: true,
+                        text: '请稍等...',
+                        spinner: 'el-icon-loading',
+                        background: 'rgba(0, 0, 0, 0.7)'
+                    })
                     const userInfo = this.userInfo
                     const fd = new FormData()
                     fd.set('nickname', userInfo.nickname)
@@ -134,6 +140,8 @@ export default {
                         } else {
                             this.$message.error('保存失败')
                         }
+                    }).finally(() => {
+                        loading.close()
                     })
                 } else {
                     return false
@@ -144,6 +152,12 @@ export default {
         setPassword(){
             this.$refs.passForm.validate((valid) => {
                 if (valid) {
+                    const loading = this.$loading({
+                        lock: true,
+                        text: '请稍等...',
+                        spinner: 'el-icon-loading',
+                        background: 'rgba(0, 0, 0, 0.7)'
+                    })
                     const fd = new FormData()
                     fd.set('password', this.password)
                     this.$axios.post('/user/change_password/', fd)
@@ -153,6 +167,8 @@ export default {
                         } else {
                             this.$message.error('密码修改失败')
                         }
+                    }).finally(() => {
+                        loading.close()
                     })
                 } else {
                     return false
@@ -163,6 +179,11 @@ export default {
     mounted(){
         // 初始化用户信息表单数据
         this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        for (let key in this.userInfo) {
+            if (!this.userInfo[key]) {
+                this.userInfo[key] = ''
+            }
+        }
     }
 }
 </script>

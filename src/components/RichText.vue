@@ -7,10 +7,11 @@
 import E from 'wangeditor'
 // import wangEditorUploadImg from '../api/index'
 export default {
+    props: [ 'oldContent' ],
     data(){
         return {
             editor: null,
-            editorContent: ''
+            editorContent: '',
         }
     },
     methods:{
@@ -40,6 +41,12 @@ export default {
                     insertImgFn(imgUrl)
                 }
             }))
+        }
+        
+    },
+    watch: {
+        oldContent(value){
+            this.editor.txt.html(value)
         }
     }
 }

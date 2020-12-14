@@ -38,7 +38,8 @@ export default {
         })
       },
       handleEdit(){
-        console.log('编辑')
+        const url = '/article/edit/' + this.articleObj.id
+        this.$router.push(url)
       },
       handleShare(){
         console.log('分享')

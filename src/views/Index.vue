@@ -109,6 +109,11 @@ export default {
       this.islogin = true
       // 初始化已登录用户信息
       const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      for (let key in userInfo) {
+        if (!userInfo[key]) {
+          userInfo[key] = ''
+        }
+      }
       this.userHead = userInfo.user_head
       this.nickname = userInfo.nickname
       this.sex = userInfo.sex

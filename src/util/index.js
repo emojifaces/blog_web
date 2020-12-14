@@ -1,0 +1,1 @@
+shareToWeibo = function shareToWeibo()
