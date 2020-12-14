@@ -12,7 +12,11 @@
           </el-col>
           <el-col :span="2" :offset="6" class="user-head-drop">
             <user-head-drop v-if="islogin" :loginUserHead="userHead"></user-head-drop>
-            <div class="user-login-btn" @click="openLoginBox" v-else>登录</div>
+            <div class="user-operate-btn-box" v-else>
+              <span @click="openLoginBox">登录</span>
+              <el-divider direction="vertical"></el-divider>
+              <span @click="openRegisterBox">注册</span>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -54,6 +58,7 @@
 
     </div>
     <login-box ref="loginbox"></login-box>
+    <register-box ref="registerbox"></register-box>
     <message-post></message-post>
   </div>
 </template>
@@ -61,6 +66,7 @@
 import UserHeadDrop from '../components/UserHeadDrop.vue'
 import LoginBox from '../components/LoginBox.vue'
 import MessagePost from '../components/MessagePost.vue'
+import RegisterBox from '../components/RegisterBox.vue'
 
 export default {
   name: 'App',
@@ -86,11 +92,15 @@ export default {
   components: {
     UserHeadDrop,
     LoginBox,
-    MessagePost
+    MessagePost,
+    RegisterBox
   },
   methods:{
     openLoginBox () {
       this.$refs.loginbox.dialogFormVisible = true
+    },
+    openRegisterBox () {
+      this.$refs.registerbox.dialogFormVisible = true
     }
   },
   mounted(){
@@ -112,9 +122,6 @@ export default {
   computed: {
     loginState(){
       return this.$store.state.loginState
-    },
-    loginUserInfo(){
-      return this.$store.state.userInfo
     }
   },
   watch: {
