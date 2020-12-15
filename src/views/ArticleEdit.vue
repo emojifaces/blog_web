@@ -126,6 +126,10 @@ export default {
             this.action = 'create'
         }
     },
+    beforeRouteLeave (to, from, next) {
+        this.$store.commit('setPostDisabled', { disabled: false })
+        next()
+    }
 }
 </script>
 <style lang="less" scoped>
