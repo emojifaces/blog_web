@@ -9,6 +9,17 @@
                     </div>
                 </template>
                 <el-form label-width="10%" :model="userInfo" ref="userInfoForm" :rules="rules">
+                    <el-form-item label="头像">
+                        <el-upload
+                        :action="uploadUrl"
+                        :show-file-list="false"
+                        :on-change="handleImages"
+                        :auto-upload='false'>
+                            <el-tooltip content="点击修改头像" placement="right">
+                                <img :src="userInfo.user_head" alt="" class="user-head">
+                            </el-tooltip>
+                        </el-upload>
+                    </el-form-item>
                     <el-form-item label="昵称" prop="nickname">
                         <el-input v-model="userInfo.nickname"></el-input>
                     </el-form-item>
@@ -40,7 +51,7 @@
                         <img src="../assets/img/password_icon.png" alt="">
                     </div>
                 </template>
-                <el-form label-width="10%" status-icon ref="passForm" :rules="rules">
+                <el-form status-icon ref="passForm" :rules="rules">
                     <el-form-item label="新密码" prop="pass">
                         <el-input v-model="password" type="password" autocomplete="off"></el-input>
                     </el-form-item>
@@ -82,6 +93,8 @@ export default {
             userInfo: {},
             password: '',
             checkpassword: '',
+            uploadUrl: 'http://42.51.181.42:18888/api/upload_img',
+            imgFile: null,
             rules: {
                 nickname: [
                     { required: true, message: '请输入昵称', trigger: blur }
@@ -98,6 +111,10 @@ export default {
         }
     },
     methods: {
+        handleImages(file){
+            this.userInfo.user_head = URL.createObjectURL(file.raw)
+            this.imgFile = file.raw
+        },
         updateUserInfo(){
             // 更新用户信息
             this.$refs.userInfoForm.validate((valid) => {
@@ -121,9 +138,11 @@ export default {
                     } else {
                         fd.set('sex', 2)
                     }
+                    if (this.imgFile) {
+                        fd.set('user_head', this.imgFile)
+                    }
                     this.$axios.post('/user/update_user_info/', fd)
                     .then(res => {
-                        console.log('save success',res)
                         if (res.status === 1) {
                             this.$message.success('保存成功')
                             const userInfo = res.data
@@ -215,5 +234,10 @@ export default {
         width: 30%;
         }
     }
+}
+.user-info-item .user-head{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 </style>

@@ -10,12 +10,12 @@ body {
 }
 .app .header {
   color: white;
-  background: #0c0b0b;
+  background: #303133;
   padding: 1rem 0;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3000;
+  z-index: 2000;
 }
 .app .header .nav {
   width: 80%;
@@ -42,7 +42,7 @@ body {
   height: 30px;
   line-height: 30px;
 }
-.app .header .nav .user-login-btn {
+.app .header .nav .user-operate-btn-box span {
   cursor: pointer;
 }
 .app .header .header-icon {
@@ -92,6 +92,12 @@ body {
   vertical-align: middle;
   margin-left: 5px;
 }
+.app .container .container-left .profile .profile-info {
+  text-align: center;
+  font-size: small;
+  margin: 1rem;
+  color: #909399;
+}
 .app .container .container-left .profile .profile-divider {
   margin: 0 10px;
 }
@@ -100,17 +106,33 @@ body {
 }
 .app .container .container-left .profile .profile-weibo {
   margin: 15px;
+  display: flex;
 }
 .app .container .container-left .profile .profile-weibo img {
   width: 20px;
+  height: 20px;
   vertical-align: bottom;
+}
+.app .container .container-left .profile .profile-weibo .weibo {
+  display: flex;
+}
+.app .container .container-left .profile .profile-weibo .weibo span {
+  word-break: break-all;
 }
 .app .container .container-left .profile .profile-email {
   margin: 15px;
+  display: flex;
 }
 .app .container .container-left .profile .profile-email img {
   width: 20px;
+  height: 20px;
   vertical-align: bottom;
+}
+.app .container .container-left .profile .profile-email .email {
+  display: flex;
+}
+.app .container .container-left .profile .profile-email .email span {
+  word-break: break-all;
 }
 .app .container .container-right {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
@@ -118,4 +140,10 @@ body {
   margin-left: 30%;
   border-radius: 4px;
   background-color: white;
+}
+.el-image-viewer__wrapper .el-image-viewer__close {
+  top: 65px;
+}
+.el-image-viewer__wrapper .el-image-viewer__close .el-icon-circle-close {
+  color: white;
 }

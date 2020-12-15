@@ -39,7 +39,6 @@ export default {
             })
         this.$axios.get('/article/'+this.$route.params.articleId)
         .then(res => {
-            console.log(res)
             if (res.status === 1) {
                 this.title = res.data.title
                 this.content = res.data.content

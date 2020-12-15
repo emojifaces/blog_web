@@ -45,7 +45,6 @@ export default {
         handleDelete () {
             const url = '/message/' + this.messageinfo.id + '/delete/'
             this.$axios.delete(url).then(res => {
-                console.log(res)
                 if (res.status === 1) {
                     this.$emit('delete', this.messageinfo.id )
                 }

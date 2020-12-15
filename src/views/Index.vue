@@ -44,11 +44,17 @@
           </div>
           <div class="profile-weibo">
             <img src="../assets/img/weibo_icon.png" alt="">
-            <span> : {{ weibo }}</span>
+            <div class="weibo">
+              <el-divider direction="vertical"></el-divider>
+              <span>{{ weibo }}</span>
+            </div>
           </div>
           <div class="profile-email">
             <img src="../assets/img/email_icon.png" alt="">
-            <span> : {{ email }}</span>
+            <div class="email">
+              <el-divider direction="vertical"></el-divider>
+              <span>{{ email }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -145,5 +151,20 @@ export default {
 
 <style lang="less">
 @import "../assets/css/common.less";
-
+.profile{
+  .profile-weibo{
+    .weibo{
+      .el-divider{
+        background-color: #909399;
+      }
+    }
+  }
+  .profile-email{
+    .email{
+      .el-divider{
+        background-color: #909399;
+      }
+    }
+  }
+}
 </style>
