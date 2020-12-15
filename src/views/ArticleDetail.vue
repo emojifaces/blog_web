@@ -13,9 +13,9 @@
                 <el-divider direction="vertical"></el-divider>
                 <span>{{ createTime }}</span>
             </div>
-            <el-divider><span style="font-size:small">正文</span></el-divider>
+            <el-divider><span style="font-size:small;color:#C0C4CC">正文</span></el-divider>
             <div v-html="content"></div>
-            <el-divider><span style="font-size:small">结束</span></el-divider>
+            <el-divider><span style="font-size:small;color:#C0C4CC">结束</span></el-divider>
         </div>
     </div>
 </template>
@@ -81,6 +81,7 @@ export default {
             span{
                 font-size: small;
                 margin: 0 1rem;
+                color: #909399;
             }
         }
     }

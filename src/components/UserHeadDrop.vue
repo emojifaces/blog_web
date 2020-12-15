@@ -2,8 +2,8 @@
     <el-dropdown class="user-head-box" @command="handleCommand">
         <img :src="loginUserHead" alt="用户头像">
         <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="message">发布动态</el-dropdown-item>
-            <el-dropdown-item command="article">发布文章</el-dropdown-item>
+            <el-dropdown-item command="message" :disabled="disabled">发布动态</el-dropdown-item>
+            <el-dropdown-item command="article" :disabled="disabled">发布文章</el-dropdown-item>
             <el-dropdown-item command="userinfo">个人信息</el-dropdown-item>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
@@ -12,6 +12,11 @@
 <script>
 export default {
     props: ['loginUserHead'],
+    data(){
+        return {
+            disabled: false,
+        }
+    },
     methods: {
         handleCommand(command){
             if (command === 'article') {
@@ -25,6 +30,16 @@ export default {
             } else if (command === 'userinfo') {
                 this.$router.push('/userInfo')
             }
+        }
+    },
+    computed: {
+        buttonDisabled(){
+            return this.$store.state.buttonDisabled
+        }
+    },
+    watch: {
+        buttonDisabled(value){
+            this.disabled = value
         }
     }
 }

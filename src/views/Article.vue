@@ -7,6 +7,18 @@
         @get-article-id="toArticleDetail"
         @delete="handleDelete"
     ></ArticleCard>
+    <el-pagination
+    :pager-count="11"
+    layout="prev, pager, next, total"
+    :total="count"
+    background
+    :page-size="5"
+    :hide-on-single-page="true"
+    :current-page="currentPage"
+    @next-click="handlePageChange"
+    @prev-click="handlePageChange"
+    @current-change="handlePageChange">
+    </el-pagination>
     </div>
 </template>
 <script>
@@ -15,36 +27,43 @@ export default{
     data(){
         return {
             articleList: [],
-            isLoadMoreArticle: false
+            isLoadMoreArticle: false,
+            count: null,
+            currentPage: 1
         }
     },
     components:{
         ArticleCard
     },
-    created(){
-        window.addEventListener('scroll', this.loadMoreArticle)
-    },
     mounted(){
-        const loading = this.$loading({
+        const page = this.$route.query.page
+        if (page) {
+            this.currentPage = parseInt(page)
+            this.loadData(page)
+        } else {
+            this.loadData(1)
+        }      
+    },
+    methods: {
+        loadData(page){
+            const loading = this.$loading({
                 lock: true,
                 text: '文章加载中...',
                 spinner: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.7)'
             })
-        this.$axios.get('/article')
-        .then(res => {
-            if (res.status === 1) {
-                this.articleList = res.data
-            }
-        })
-        .finally(() => {
-            loading.close()
-        })
-    },
-    destroyed(){
-        window.removeEventListener('scroll', this.loadMoreArticle)
-    },
-    methods: {
+            const url = '/article/?page=' + page
+            this.$axios.get(url)
+            .then(res => {
+                if (res.status === 1) {
+                    this.articleList = res.data
+                    this.count = res.count
+                }
+            })
+            .finally(() => {
+                loading.close()
+            })
+        },
         toArticleDetail(articleId){
             this.$router.push('/article/'+articleId)
         },
@@ -56,22 +75,15 @@ export default{
             })
             this.$message.success('删除成功')
         },
-        loadMoreArticle(){
-            let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-            let clientHeight = document.documentElement.clientHeight
-            let scrollHeight = document.documentElement.scrollHeight
-            if (scrollTop + clientHeight >= scrollHeight - 10 && this.isLoadMoreArticle == false) {
-              this.isLoadMoreArticle = true
-              const url = '/article/?offset=' + this.articleList.length
-              this.$axios.get(url).then(res => {
-                if (res.status === 1) {
-                  this.articleList = this.articleList.concat(res.data)
-                  this.isLoadMoreArticle = false
-                } else {
-                  this.$message.warning('我是有底线的')
-                }
-              })
-            }
+        handlePageChange(value){
+            const url = '/article/?page=' + value
+            this.$router.push(url)
+        }
+    },
+    beforeRouteUpdate (to, from , next) {
+        if (to.query.page) {
+            next()
+            location.reload()
         }
     }
 }
@@ -80,5 +92,14 @@ export default{
 .article-container{
     background-color: unset!important;
     box-shadow:unset!important;
+}
+</style>
+<style lang="less">
+.article-container .el-pagination.is-background .el-pager li:not(.disabled).active{
+    background-color: #606266;
+}
+.article-container .el-pagination.is-background .el-pager li:not(.disabled):hover {
+    color: #DCDFE6;
+    background-color: #C0C4CC;
 }
 </style>

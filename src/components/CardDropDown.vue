@@ -19,14 +19,12 @@ export default {
     },
     methods: {
         handleCommand (command) {
-            console.log(command)
             if (command === 'edit') {
                 this.$emit('edit')
             } else if (command === 'share') {
                 this.$emit('share')
             } else if (command === 'delete') {
                 this.$emit('delete')
-                console.log('删除')
             }
         }
     }

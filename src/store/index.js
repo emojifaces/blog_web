@@ -8,6 +8,7 @@ export default new Vuex.Store({
         showMessagePostBox: false,
         loginState: !!localStorage.getItem('jwt'),
         newMessage: {},
+        buttonDisabled: false, // 是否禁用发布动态\发布文章按钮
     },
     mutations: {
         setMessagePostTag(state, payload){
@@ -18,6 +19,10 @@ export default new Vuex.Store({
         },
         addMessage(state, payload){
             state.newMessage = payload.data
+        },
+        // 设置是否禁用发布动态、发布文章按钮
+        setPostDisabled(state, payload){
+            state.buttonDisabled = payload.disabled
         },
     }
 })

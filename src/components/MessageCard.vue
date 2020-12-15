@@ -7,7 +7,11 @@
             <div class="user-name">
                 <span>{{ messageinfo.user.nickname }}</span>
             </div>
-            <card-drop-down class="cardDropDown" v-if="messageinfo.is_mine" @delete="handleDelete" @edit="handleEdit" @share="handleShare"></card-drop-down>
+            <div class="cardDropDown" v-if="messageinfo.is_mine" @click="handleDelete">
+                <el-tooltip content="删除" placement="top">
+                    <i class="el-icon-delete"></i>
+                </el-tooltip>
+            </div>
         </div>
         <div class="card-content">{{ messageinfo.content }}</div>
         <div class="card-img" v-if="messageinfo.images">
@@ -22,12 +26,8 @@
     </div>
 </template>
 <script>
-import CardDropDown from '../components/CardDropDown.vue'
 export default {
     props: ['messageinfo'],
-    components: {
-        CardDropDown
-    },
     data(){
         return {
             imgVisible: false,
@@ -43,21 +43,13 @@ export default {
         },
         // 删除动态
         handleDelete () {
-            const url = '/message/' + this.messageinfo.id
+            const url = '/message/' + this.messageinfo.id + '/delete/'
             this.$axios.delete(url).then(res => {
                 console.log(res)
                 if (res.status === 1) {
                     this.$emit('delete', this.messageinfo.id )
                 }
             })    
-        },
-        // 编辑动态
-        handleEdit () {
-            console.log('编辑动态')
-        },
-        // 分享到微博
-        handleShare () {
-            console.log('分享到微博')
         }
     },
     mounted(){
@@ -92,6 +84,7 @@ export default {
     .card-content{
         padding-left: 50px;
         font-size: small;
+        color: #606266;
     }
     .card-img{
         padding-left: 50px;

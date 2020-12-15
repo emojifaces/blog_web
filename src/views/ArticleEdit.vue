@@ -34,7 +34,9 @@ export default {
             title: '',
             isShowBtn: false,
             img: null,
-            originalContent: ''
+            originalContent: '',
+            action: null,
+            articleId: null
         }
     },
     methods: {
@@ -59,13 +61,19 @@ export default {
                     type: 'error'
                 })
             } else {
+                var url = null
+                if (this.action === 'create') {
+                    url = '/article/'
+                } else if (this.action === 'edit') {
+                    url = '/article/' + this.articleId + '/update_article/'
+                }
                 const fd = new FormData()
                 fd.set('title', this.title)
                 fd.set('content', content)
                 if (this.img) {
                     fd.set('img', this.img)
                 }
-                this.$axios.post('/article/', fd).then(res => {
+                this.$axios.post(url, fd).then(res => {
                     if (res.status === 1) {
                         this.$router.push('/article')
                     }
@@ -88,10 +96,15 @@ export default {
             this.isShowBtn = false
         }
     },
+    created(){
+        this.$store.commit('setPostDisabled', { disabled: true })
+    },
     mounted(){
         const id = this.$route.params.articleId
         if (id) {
             // 文章编辑模式
+            this.action = 'edit'
+            this.articleId = id
             const loading = this.$loading({
                 lock: true,
                 text: '加载中...',
@@ -100,18 +113,17 @@ export default {
             })
             this.$axios.get('/article/' + id)
             .then(res => {
-                console.log(res)
                 if (res.status === 1) {
                     this.title = res.data.title
                     this.originalContent = res.data.content
+                    this.$refs.articlecover.imgUrl = res.data.img
                 }
             }).finally(() => {
                 loading.close()
             })
         } else {
             // 文章创建模式
-            this.title = ''
-            this.originalContent = ''
+            this.action = 'create'
         }
     },
 }
