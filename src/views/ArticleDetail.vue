@@ -12,6 +12,8 @@
                 <span>{{ author.nickname }}</span>
                 <el-divider direction="vertical"></el-divider>
                 <span>{{ createTime }}</span>
+                <el-divider direction="vertical"></el-divider>
+                <span>最后编辑：{{ updaeTime }}</span>
             </div>
             <el-divider><span style="font-size:small;color:#C0C4CC">正文</span></el-divider>
             <div v-html="content"></div>
@@ -27,6 +29,7 @@ export default {
             title: '',
             content: '',
             createTime: '',
+            updaeTime: '',
             author: {}
         }
     },
@@ -43,6 +46,7 @@ export default {
                 this.title = res.data.title
                 this.content = res.data.content
                 this.createTime = res.data.create_time
+                this.updaeTime = res.data.update_time
                 this.img = res.data.img
                 this.author = res.data.user
             }

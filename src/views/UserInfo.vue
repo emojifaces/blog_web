@@ -8,7 +8,7 @@
                         <img src="../assets/img/userInfo_icon.png" alt="">
                     </div>
                 </template>
-                <el-form label-width="10%" :model="userInfo" ref="userInfoForm" :rules="rules">
+                <el-form label-width="15%" :model="userInfo" ref="userInfoForm" :rules="rules">
                     <el-form-item label="头像">
                         <el-upload
                         :action="uploadUrl"
@@ -51,7 +51,7 @@
                         <img src="../assets/img/password_icon.png" alt="">
                     </div>
                 </template>
-                <el-form status-icon ref="passForm" :rules="rules">
+                <el-form status-icon ref="passForm" :rules="rules" label-width="15%">
                     <el-form-item label="新密码" prop="pass">
                         <el-input v-model="password" type="password" autocomplete="off"></el-input>
                     </el-form-item>
@@ -231,7 +231,7 @@ export default {
 .user-info-container{
     .el-form-item__content{
         .el-input{
-        width: 30%;
+        width: 35%;
         }
     }
 }

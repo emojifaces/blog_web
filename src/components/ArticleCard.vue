@@ -15,6 +15,8 @@
 </template>
 <script>
 import CardDropDown from '../components/CardDropDown.vue'
+import { shareToWeibo } from '../util/index.js'
+
 export default {
     props: ['articleObj'],
     components: {
@@ -42,7 +44,10 @@ export default {
         this.$router.push(url)
       },
       handleShare(){
-        console.log('分享')
+        const title = this.articleObj.title
+        const url = window.location.protocol + "//" + window.location.host + '/article/' + this.articleObj.id
+        const picUrl = this.articleObj.img
+        shareToWeibo(title, url, picUrl)
       }
     }
 };
